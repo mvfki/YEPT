@@ -1,7 +1,7 @@
 # YEPT - YEast Primer Tool
 
 ## Usage
-For MS Windows users, download the executable here.  
+For MS Windows users, download the executable [here](https://github.com/mvfki/YEPT/raw/master/dist/YEPT.exe).  
 For MacOSX users, please wait for some days...  
 
 ## Updates
