@@ -1,7 +1,6 @@
 import os.path
 from sqlite3 import connect
 from pickle import load
-#from pandas import DataFrame
 from urllib.error import URLError
 from Bio.Blast.NCBIWWW import qblast
 from subprocess import Popen, PIPE
@@ -290,10 +289,8 @@ def BLAST_by_sp(keyword, species, min_cov, max_eval):
         query = chromosome_seq[position[1]:position[2]].upper()
     else:
         query = antisense(chromosome_seq[position[1]:position[2]])
-
     # Call local BLAST against target species
     topHits = callLocalBLAST(query.encode(), species, min_cov = min_cov, max_eval = max_eval)
-    #tmpOut = '\n'.join(topHits)
     FinalResult = []
     for tokens in topHits:
         chromosome, start, end = tokens[1], int(tokens[8]), int(tokens[9])

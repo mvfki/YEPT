@@ -9,15 +9,6 @@ import os.path
 this_dir, this_filename = os.path.split(__file__)
 _iconPath = os.path.join(this_dir, "data", "YEPT.ico")
 
-_BLAST_WAIT_MSG = '''BLASTing...
-The BLAST function requires the Internet connection.
-You may wait for about 10-20s for it to return the results, if your network works well...
-Sometimes it crashes when using this function, restarting this program might help.'''
-
-_BLAST_CONN_ERROR_MSG = '''Failed to connect to the Internet. Please check it.
-========================================================================================='''
-
-
 class YEPT_window():
 
     def __init__(self):
@@ -36,7 +27,6 @@ class YEPT_window():
         self.b2 = Button(self.frmbt, 
                          text = 'Get Checking Primers', 
                          font = ("Arial", 12))
-        #self.b2.bind("<Button-1>", self.getCheckPrimerWindow)
         self.b2.bind("<Button-1>", self.openCheckPrimerWindow)
         self._layout_bottom()
 
@@ -60,12 +50,15 @@ class YEPT_window():
         # Frame at the left side
         self.blast = Frame(self.total)
         self.blast.pack(pady = 5, padx = 8, side = LEFT)
+        
         self.btf = Frame(self.blast)
         self.btf.pack(pady=5,fill=X)
+        
         btitle = Label(self.btf, 
                        text = 'BLAST to get AccessionID', 
                        font = ("Arial", 10), width = 19)
         btitle.pack(side = RIGHT)
+        
         self.lblast = Label(self.btf, 
                             text = "(Don't like it? Do it yourself.)", 
                             font = ("Arial", 9), fg = 'blue', width = 22)
@@ -84,6 +77,7 @@ class YEPT_window():
         # BLAST species selection
         b_species = Frame(self.blast)
         b_species.pack(pady = 5, fill = X)
+        
         bspl = Label(b_species, 
                      text = "Target pecies:", 
                      font = ("Arial", 10), width = 10)
@@ -185,7 +179,7 @@ class YEPT_window():
                 self.tb.insert(END, 'No significant hit found.')
             elif output == 'NoName':
                 self.tb.delete(0.0, END)
-                self.tb.insert(END, 'There is no gene called "%s" in S. pombe. Please check the symbol twice.' % gene_name)
+                self.tb.insert(END, 'There is no gene called "%s" in S. pombe.' % gene_name)
                 self.tb.insert(END, str(output))
             else:
                 self.tb.delete(0.0, END)
@@ -198,6 +192,7 @@ class YEPT_window():
     def _layout_primerDesign(self):
         self.options = Frame(self.total)
         self.options.pack(pady = 5, padx = 10, side = RIGHT)
+
         self.entries = Frame(self.options)
         self.entries.pack(fill = X, pady = 5)
         
@@ -209,10 +204,12 @@ class YEPT_window():
         
         self.frmbt = Frame(self.options)
         self.frmbt.pack(pady = 5, fill = X, side = BOTTOM)
+        
         self.b1 = Button(self.frmbt, text = 'Get Primer', font = ("Arial", 12))
         self.b1.bind("<Return>", self.getPrimer)
         self.b1.bind("<Button-1>", self.getPrimer)
         self.b1.pack(side = LEFT, pady = 5, ipady = 1, ipadx = 1)
+        
         self.b2 = Button(self.frmbt, 
                          text = 'Get Checking Primers', 
                          font = ("Arial", 12))
@@ -225,6 +222,7 @@ class YEPT_window():
 
         rtf = Frame(primer_result) # result title frame
         rtf.pack(fill = X)
+        
         result_title = Label(rtf, 
                              text = 'The primer we get is following:', 
                              font = ("Arial", 11))
@@ -232,8 +230,10 @@ class YEPT_window():
 
         rcf = Frame(primer_result) # result content frame
         rcf.pack(fill = X)
+        
         self.t = Text(rcf, width = 125, height = 5)
         self.t.pack(side = LEFT, fill = Y, expand = YES)
+        
         scr = Scrollbar(rcf)
         scr.pack(side = RIGHT, fill = Y)
         self.t["yscrollcommand"] = scr.set
@@ -244,13 +244,16 @@ class YEPT_window():
                    text = 'Accession ID for all or \ngene symbol in S. pombe:', 
                    font = ("Arial", 10), width = 20)
         l2.pack(side = LEFT)
+        
         self.e2 = Entry(self.entries, width = 14)
         self.e2.bind("<Return>", self.getPrimer)
         self.e2.bind("<Key>", self._forgetb2)
         self.e2.pack(side = LEFT)
+        
         l3 = Label(self.entries, text = 'length:',
                    font = ("Arial", 10), width = 6)
         l3.pack(side = LEFT)
+        
         self.e3 = Entry(self.entries, width = 3)
         self.e3.insert(0, '80')
         self.e3.bind("<Return>", self.getPrimer)
@@ -260,9 +263,11 @@ class YEPT_window():
     def _layout_primerDesign_line2(self):
         check_species = Frame(self.options)
         check_species.pack(fill = X, pady = 5)
+        
         sp = Label(check_species, text = 'Species:', 
                    font = ("Arial", 10), width = 6)
         sp.pack(side = LEFT)
+        
         self.species_var = StringVar()
         self.species_var.set(1)
         Issp = Radiobutton(check_species, text = "S. pombe", 
@@ -285,6 +290,7 @@ class YEPT_window():
     def _layout_primerDesign_line3(self):
         self.check_mode = Frame(self.options)
         self.check_mode.pack(fill = X, pady = 5)
+        
         self.mode_var = StringVar()
         self.mode_var.set(2)
         md = Label(self.check_mode, text = 'Fuction:', 
@@ -309,9 +315,11 @@ class YEPT_window():
     def _layout_primerDesign_line4_1(self):
         self.blankframe = Frame(self.options)
         self.blankframe.pack(after = self.check_mode, pady = 18)
+        
         self.check_plsmd = Frame(self.options)
         self.check_plsmd.pack(after = self.check_mode, pady = 5)
         self.check_plsmd.forget()
+        
         pl = Label(self.check_plsmd, text = 'Plasmid:', 
                    font = ("Arial", 10), width = 10)
         pl.pack(side = LEFT)
@@ -330,9 +338,11 @@ class YEPT_window():
         self.check_Ntag = Frame(self.options)
         self.check_Ntag.pack(after = self.check_mode, pady = 5)
         self.check_Ntag.forget()
+        
         nt = Label(self.check_Ntag, text = 'N-terminal Tag:', 
                    font = ("Arial", 10), width = 10)
         nt.pack(side = LEFT)
+        
         self.Ntag_var = StringVar()
         self.Ntag_var.set(' ')
         Isnone = Radiobutton(self.check_Ntag, text = "None", 
@@ -497,6 +507,7 @@ class CheckPrimerWindow():
     def layout(self):
         l3 = Label(self.window, text = "Getting Checking Primers", font = ("Arial", 12), width = 30, height = 2)
         l3.pack(fill = X, pady = 5)
+        
         self.options2 = Frame(self.window)
         self.options2.pack(pady = 5, padx = 10)
 
@@ -507,6 +518,7 @@ class CheckPrimerWindow():
               text = "AccessionID: " + self.Main.e2.get(), 
               font = ("Arial", 10), 
               width = len("AccessionID: " + self.Main.e2.get())).pack(side = LEFT)
+        
         Label(preinf, 
               text = "Length: " + self.Main.e3.get(), 
               font = ("Arial", 10), width = 10).pack(side = LEFT)
@@ -528,9 +540,11 @@ class CheckPrimerWindow():
     def _layout_line1(self):
         searchregion = Frame(self.options2)
         searchregion.pack(fill = X, pady = 5)
+        
         Label(searchregion, 
               text = "Number of basepairs up- or downstream of the\ntarget sequence to use for primer search:", 
               font = ("Arial", 10), width = 33, height = 2).pack(side = LEFT)
+        
         self.e_search = Entry(searchregion, width = 5)
         self.e_search.insert(0, '400')
         self.e_search.pack(side = LEFT, padx = 3)
@@ -538,22 +552,28 @@ class CheckPrimerWindow():
     def _layout_line2(self):
         chlen = Frame(self.options2)
         chlen.pack(fill = X, pady = 5)
+        
         Label(chlen, 
               text = "Opt. Primer Length:", 
               font = ("Arial", 10), width = 18).pack(side = LEFT)
+        
         self.optlen = Entry(chlen, width = 5)
         self.optlen.insert(0, '22')
         self.optlen.bind("<Button-1>", self.Main._backtob3)
         self.optlen.pack(side = LEFT)
+        
         Label(chlen, text = "Min. Primer Length:", 
               font = ("Arial", 10), width = 18 ).pack(side = LEFT)
+        
         self.minlen = Entry(chlen, width = 5)
         self.minlen.insert(0, '20')
         self.minlen.bind("<Button-1>", self.Main._backtob3)
         self.minlen.pack(side = LEFT)
+        
         Label(chlen, 
               text = "Max. Primer Length:", 
               font = ("Arial", 10), width = 18 ).pack(side = LEFT)
+        
         self.maxlen = Entry(chlen, width = 5)
         self.maxlen.insert(0, '28')
         self.maxlen.bind("<Button-1>", self.Main._backtob3)
@@ -562,22 +582,29 @@ class CheckPrimerWindow():
     def _layout_line3(self):
         chTM = Frame(self.options2)
         chTM.pack(fill = X, pady = 5)
+        
         Label(chTM, 
               text = "Opt. Primer TM:", 
               font = ("Arial", 10), width = 18).pack(side = LEFT)
+        
         self.optTM = Entry(chTM, width = 5)
         self.optTM.insert(0, '60')
         self.optTM.bind("<Button-1>", self.Main._backtob3)
         self.optTM.pack(side = LEFT)
+        
         Label(chTM, 
-              text = "Min. Primer TM:", font = ("Arial", 10), width = 18).pack(side = LEFT)
+              text = "Min. Primer TM:", 
+              font = ("Arial", 10), width = 18).pack(side = LEFT)
+        
         self.minTM = Entry(chTM, width = 5)
         self.minTM.insert(0, '57')
         self.minTM.bind("<Button-1>", self.Main._backtob3)
         self.minTM.pack(side = LEFT)
+        
         Label(chTM, 
               text = "Max. Primer TM:", 
               font = ("Arial", 10), width = 18 ).pack(side = LEFT)
+        
         self.maxTM = Entry(chTM, width = 5)
         self.maxTM.insert(0, '63')
         self.maxTM.bind("<Button-1>", self.Main._backtob3)
@@ -586,12 +613,20 @@ class CheckPrimerWindow():
     def _layout_line4(self):
         chGC = Frame(self.options2)
         chGC.pack(fill = X,pady = 5)
-        Label(chGC, text = "Opt. Primer GC Content:", font = ("Arial",10), width = 18).pack(side = LEFT)
+        
+        Label(chGC, 
+              text = "Opt. Primer GC Content:", 
+              font = ("Arial",10), width = 18).pack(side = LEFT)
+        
         self.minGC = Entry(chGC, width = 5)
         self.minGC.insert(0, '30')
         self.minGC.bind("<Button-1>", self.Main._backtob3)
         self.minGC.pack(side = LEFT)
-        Label(chGC, text = "Min. Primer GC Content:", font = ("Arial", 10), width = 18).pack(side = LEFT)
+        
+        Label(chGC, 
+              text = "Min. Primer GC Content:", 
+              font = ("Arial", 10), width = 18).pack(side = LEFT)
+        
         self.maxGC = Entry(chGC, width = 5)
         self.maxGC.insert(0, '70')
         self.maxGC.bind("<Button-1>", self.Main._backtob3)
