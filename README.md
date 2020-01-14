@@ -1,8 +1,20 @@
 # YEPT - YEast Primer Tool
 
 ## Usage
+### Packaged GUI Application
 For MS Windows users, download the executable [here](https://github.com/mvfki/YEPT/releases/download/YEPT_2.0/YEPT_2.0_win.exe).  
 For MacOSX users, please wait for some days...  
+### Run from Development Level
+For users from ANY operation system. The application can be run from the source code.  
+First clone this repository.
+```
+git clone https://github.com/mvfki/YEPT.git
+cd YEPT
+```
+There is no installation need. The visible window interface can be invoked by:
+```
+python main.py
+```
 
 ## Updates
 ### 2.0 - Update  
