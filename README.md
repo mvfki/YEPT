@@ -1,7 +1,7 @@
 # YEPT - YEast Primer Tool
 
 ## Usage
-For MS Windows users, download the executable [here](https://github.com/mvfki/YEPT/raw/master/dist/YEPT.exe).  
+For MS Windows users, download the executable [here](https://github.com/mvfki/YEPT/releases/download/YEPT_2.0/YEPT_2.0_win.exe).  
 For MacOSX users, please wait for some days...  
 
 ## Updates
@@ -38,5 +38,7 @@ Finally, we pack it with pre-tested script.
 >pyinstaller YEPT_win.spec
 ```
 
-5. TODOs
-- Try merge all three types of primer calculations into one, with variables defined in separate script file.  
+5. TODOs. (sorted by priority)
+- Support more types of alias. For example, a case when gene symbol is "new10" but protein product is called "erh1", where the latter is actually more popular and meaningful.  
+- MacOSX version.  
+- Maybe better arrangement of the core calculation functions
